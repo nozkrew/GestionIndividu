@@ -24,6 +24,13 @@ public class Individu {
     {
 
     }
+
+    public Individu(int id, String nom, Date dateDeNaissance) {
+        this.id = id;
+        this.nom = nom;
+        this.dateDeNaissance = dateDeNaissance;
+    }
+
     public void insert(Connection p_connection)
     {
         String request = "INSERT INTO individu (nom, dateNaissance) values (?, ?)";
@@ -60,7 +67,7 @@ public class Individu {
 
             try (java.sql.ResultSet resultSet = stmt.executeQuery(request)) {
                 while(resultSet.next()) {
-                    individus.add(new Individu(resultSet.getString("nom"), resultSet.getDate("dateNaissance")));
+                    individus.add(new Individu( resultSet.getInt("id") ,resultSet.getString("nom"), resultSet.getDate("dateNaissance")));
                 }
                 return individus;
             }
